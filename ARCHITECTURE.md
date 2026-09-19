@@ -102,5 +102,6 @@ Per PRD §3, several technology and implementation choices are left open to engi
 | **Step 1** | Repo scaffold, Docker Compose, Celery, /health with 503 degraded handling | **Completed** |
 | **Step 2** | Auth (Register/Login/JWT), User model, Alembic initial migration | **Completed** |
 | **Step 3** | Document model, file validation, storage service, POST /documents | **Completed** |
-| **Step 4** | Celery worker task pipeline & async verification | Up Next |
+| **Step 4** | Celery worker task pipeline & async verification | **Completed** |
+| **Step 5** | Stage 2 text extraction (PyMuPDF native + Tesseract OCR fallback) | Up Next |
 

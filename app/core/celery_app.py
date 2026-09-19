@@ -5,7 +5,7 @@ celery_app = Celery(
     "document_intelligence_worker",
     broker=settings.celery_broker,
     backend=settings.celery_backend,
-    include=[]
+    include=["app.workers.tasks"]
 )
 
 celery_app.conf.update(

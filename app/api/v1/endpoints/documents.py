@@ -68,6 +68,10 @@ async def upload_document(
     await db.commit()
     await db.refresh(new_doc)
 
+    # Enqueue async processing task via Celery
+    from app.workers.tasks import process_document
+    process_document.delay(str(new_doc.id))
+
     return new_doc
 
 
