@@ -80,6 +80,11 @@ Per PRD §3, several technology and implementation choices are left open to engi
 - **Decision:** Implement active dependency health probes on `/health` returning HTTP 200 (`status: "healthy"`) when all dependencies are reachable, and HTTP 503 (`status: "unhealthy"`) with granular component reports (`database: "connected" | "disconnected"`, `redis: "connected" | "disconnected"`) when any dependency is degraded.
 - **Rationale:** Production orchestrators and load balancers rely on non-200 HTTP status codes to prevent routing traffic to degraded pods. Reporting granular component states provides immediate operational telemetry for automated alert routing.
 
+### 2.6 Authentication & Multi-User Isolation
+- **Decision:** JWT Bearer authentication with passlib/bcrypt password hashing, accompanied by a reusable `get_current_user` dependency that resolves the authenticated `User` from PostgreSQL on each protected request.
+- **Rationale:** Strict user isolation is mandated by PRD §2 ("No cross-user access under any circumstance") and PRD §11 ("access strictly filtered by owner_user_id at the query level"). Decoupling auth into standard OAuth2 password flow with JWT bearer tokens enables stateless token validation at API gateways while maintaining query-level scoping guarantees in application code.
+- **Trade-offs:** Stateless JWT tokens are valid until expiration (24 hours). For the current take-home scope, token revocation lists or refresh token rotation are excluded per PRD §11, which is acceptable given the single-role architecture.
+
 ---
 
 ## 3. Storage & Data Protection Design
@@ -95,6 +100,7 @@ Per PRD §3, several technology and implementation choices are left open to engi
 | Build Step | Description | Status |
 |---|---|---|
 | **Step 1** | Repo scaffold, Docker Compose, Celery, /health with 503 degraded handling | **Completed** |
-| **Step 2** | Auth (Register/Login/JWT), User model, Alembic initial migration | Up Next |
-| **Step 3** | Document model, file validation, storage service, POST /documents | Queued |
+| **Step 2** | Auth (Register/Login/JWT), User model, Alembic initial migration | **Completed** |
+| **Step 3** | Document model, file validation, storage service, POST /documents | Up Next |
 | **Step 4** | Celery worker task pipeline & async verification | Queued |
+
