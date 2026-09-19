@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_user
 from app.core.database import get_db
 from app.models.document import Document
+from app.models.document_page import DocumentPage
 from app.models.user import User
 from app.schemas.document import (
     DocumentCreateResponse,
@@ -14,6 +15,7 @@ from app.schemas.document import (
     DocumentResponse,
     DocumentStatusResponse,
 )
+from app.schemas.document_page import DocumentPageResponse
 from app.services.file_validation import validate_file_content
 from app.services.storage import save_upload_file
 
@@ -163,3 +165,41 @@ async def list_documents(
         "total": total,
         "items": items
     }
+
+
+@router.get(
+    "/{document_id}/pages",
+    response_model=List[DocumentPageResponse],
+    summary="Get Extracted Pages",
+    description="Returns raw extracted text, extraction method (native vs OCR), and confidence score per page."
+)
+async def get_document_pages(
+    document_id: uuid.UUID,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db)
+) -> Any:
+    """Retrieve raw extracted pages for an owned document."""
+    # First verify document ownership
+    doc_stmt = select(Document).where(
+        Document.id == document_id,
+        Document.owner_user_id == current_user.id
+    )
+    doc_result = await db.execute(doc_stmt)
+    document = doc_result.scalar_one_or_none()
+
+    if not document:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Document not found or access denied."
+        )
+
+    # Fetch pages ordered by page_number
+    pages_stmt = (
+        select(DocumentPage)
+        .where(DocumentPage.document_id == document_id)
+        .order_by(DocumentPage.page_number.asc())
+    )
+    pages_result = await db.execute(pages_stmt)
+    pages = pages_result.scalars().all()
+
+    return pages
