@@ -1,5 +1,6 @@
 from typing import Optional
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from app import __version__
 
 
 class Settings(BaseSettings):
@@ -14,7 +15,7 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
     ENVIRONMENT: str = "development"
     DEBUG: bool = True
-    VERSION: str = "1.0.0"
+    VERSION: str = __version__
 
     # Security
     SECRET_KEY: str = "super-secret-key-change-in-production-min-32-chars-length"
