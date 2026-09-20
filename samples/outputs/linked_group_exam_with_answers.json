@@ -1,0 +1,146 @@
+[
+  {
+    "id": "a3116ad7-099f-48bb-9fab-884c5042015d",
+    "question_number": "1",
+    "question_text": "What is the time complexity of QuickSort in the average case?",
+    "question_type": "mcq",
+    "options": [
+      {
+        "label": "A",
+        "text": "O(n)"
+      },
+      {
+        "label": "B",
+        "text": "O(n log n)"
+      },
+      {
+        "label": "C",
+        "text": "O(n^2)"
+      },
+      {
+        "label": "D",
+        "text": "O(1)"
+      }
+    ],
+    "answer": {
+      "value": "B",
+      "confidence": 0.95,
+      "match_method": "number_match"
+    },
+    "source_document_id": "ae065e76-b225-499b-81c5-d967b21e90ae",
+    "source_pages": [
+      1
+    ],
+    "confidence": 0.93,
+    "status": "extracted",
+    "review_reason": null
+  },
+  {
+    "id": "98911d45-7adf-4f3f-ab51-bd9507e581d4",
+    "question_number": "2",
+    "question_text": "Which data structure operates on a First-In, First-Out (FIFO) basis?",
+    "question_type": "mcq",
+    "options": [
+      {
+        "label": "A",
+        "text": "Stack"
+      },
+      {
+        "label": "B",
+        "text": "Tree"
+      },
+      {
+        "label": "C",
+        "text": "Queue"
+      },
+      {
+        "label": "D",
+        "text": "Graph"
+      }
+    ],
+    "answer": {
+      "value": "C",
+      "confidence": 0.95,
+      "match_method": "number_match"
+    },
+    "source_document_id": "ae065e76-b225-499b-81c5-d967b21e90ae",
+    "source_pages": [
+      1
+    ],
+    "confidence": 0.96,
+    "status": "extracted",
+    "review_reason": null
+  },
+  {
+    "id": "f4493f34-84fb-48ab-9e50-b618edf2b7fc",
+    "question_number": "3",
+    "question_text": "What is the derivative of f(x) = x^2 with respect to x?",
+    "question_type": "mcq",
+    "options": [
+      {
+        "label": "A",
+        "text": "2x"
+      },
+      {
+        "label": "B",
+        "text": "x"
+      },
+      {
+        "label": "C",
+        "text": "2"
+      },
+      {
+        "label": "D",
+        "text": "x^3"
+      }
+    ],
+    "answer": {
+      "value": "A",
+      "confidence": 0.95,
+      "match_method": "number_match"
+    },
+    "source_document_id": "ae065e76-b225-499b-81c5-d967b21e90ae",
+    "source_pages": [
+      1
+    ],
+    "confidence": 0.96,
+    "status": "extracted",
+    "review_reason": null
+  },
+  {
+    "id": "09e566fe-b0a3-4651-a2fc-0703bc9f2bbe",
+    "question_number": "4",
+    "question_text": "What is the approximate speed of light in a vacuum?",
+    "question_type": "mcq",
+    "options": [
+      {
+        "label": "A",
+        "text": "3x10^8 m/s"
+      },
+      {
+        "label": "B",
+        "text": "1x10^6 m/s"
+      },
+      {
+        "label": "C",
+        "text": "300 m/s"
+      },
+      {
+        "label": "D",
+        "text": "Infinite"
+      }
+    ],
+    "answer": {
+      "value": null,
+      "confidence": 0.0,
+      "match_method": "unmatched"
+    },
+    "source_document_id": "ae065e76-b225-499b-81c5-d967b21e90ae",
+    "source_pages": [
+      1
+    ],
+    "confidence": 0.77,
+    "status": "extracted",
+    "review_reason": null
+  }
+]

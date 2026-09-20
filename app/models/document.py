@@ -61,6 +61,7 @@ class Document(Base):
     )
     group_id: Mapped[Optional[uuid.UUID]] = mapped_column(
         UUID(as_uuid=True),
+        ForeignKey("document_groups.id", ondelete="SET NULL"),
         nullable=True,
         index=True
     )
@@ -82,6 +83,7 @@ class Document(Base):
 
     # Relationships
     owner = relationship("User", backref="documents")
+    group = relationship("DocumentGroup", back_populates="documents")
 
     def __repr__(self) -> str:
         return f"<Document id={self.id} filename={self.original_filename} status={self.status}>"

@@ -44,3 +44,42 @@ class DocumentResponse(DocumentBase):
 class DocumentListResponse(BaseModel):
     total: int
     items: List[DocumentResponse]
+
+
+class HumanReadableQuestionOption(BaseModel):
+    label: str
+    text: str
+    is_correct: bool = False
+
+
+class HumanReadableQuestionItem(BaseModel):
+    question_number: str
+    question_text: str
+    question_type: str
+    source_pages: List[int]
+    confidence: float
+    status: str
+    options: Optional[List[HumanReadableQuestionOption]] = None
+    verified_answer: Optional[str] = None
+    answer_match_method: Optional[str] = None
+    answer_confidence: Optional[float] = None
+    review_reason: Optional[str] = None
+
+
+class DocumentExtractionSummary(BaseModel):
+    document_name: str
+    status: str
+    total_pages: int
+    extraction_engine: str
+    total_questions: int
+    verified_questions: int
+    needs_review_questions: int
+    average_confidence: str
+
+
+class DocumentExtractionResultResponse(BaseModel):
+    document_id: uuid.UUID
+    summary: DocumentExtractionSummary
+    human_readable_results: str
+    questions: List[HumanReadableQuestionItem]
+

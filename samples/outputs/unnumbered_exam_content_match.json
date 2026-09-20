@@ -1,0 +1,38 @@
+[
+  {
+    "id": "6d96c430-42eb-4f43-b76a-0dc0e0448e79",
+    "question_number": null,
+    "question_text": "DATABASE SYSTEMS QUIZ What is the standard model for relational database queries?",
+    "question_type": "mcq",
+    "options": [
+      {
+        "label": "A",
+        "text": "SQL Language"
+      },
+      {
+        "label": "B",
+        "text": "GraphQL Schema"
+      },
+      {
+        "label": "C",
+        "text": "Cypher Query"
+      },
+      {
+        "label": "D",
+        "text": "MongoDB BSON"
+      }
+    ],
+    "answer": {
+      "value": "A",
+      "confidence": 0.7,
+      "match_method": "content_match"
+    },
+    "source_document_id": "7492f55c-f8a7-4cbb-b428-685dc691c97c",
+    "source_pages": [
+      1
+    ],
+    "confidence": 0.88,
+    "status": "extracted",
+    "review_reason": null
+  }
+]

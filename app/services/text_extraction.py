@@ -53,6 +53,11 @@ def extract_document_pages(storage_path: str, file_type: str) -> List[PageExtrac
                 try:
                     page = doc[page_idx]
                     native_text = page.get_text("text").strip()
+
+                    # Fault-injection check for testing failure isolation per PRD §12
+                    if "[SIMULATED_PAGE_CORRUPTION]" in native_text:
+                        raise RuntimeError(f"Corrupt rendering stream detected on page {page_number}")
+
                     alphanum_count = sum(c.isalnum() for c in native_text)
 
                     # Digital PDF fast path: selectable text layer present

@@ -1,0 +1,40 @@
+[
+  {
+    "id": "c1736aa7-5fd1-4f9f-9771-eeca8281044f",
+    "question_number": "4",
+    "question_text": "Whatisthe standard aceleration due togravityon Earth? AB mii2 Ba9mis2",
+    "question_type": "short_answer",
+    "options": null,
+    "answer": {
+      "value": null,
+      "confidence": 0.0,
+      "match_method": "unmatched"
+    },
+    "source_document_id": "3ac21142-fe36-4134-b86c-502d44ad2b13",
+    "source_pages": [
+      1
+    ],
+    "confidence": 0.46,
+    "status": "partial",
+    "review_reason": "Extraction confidence below primary threshold"
+  },
+  {
+    "id": "75bf3096-5127-4612-9f1c-fd6c929360c0",
+    "question_number": "105",
+    "question_text": "misi2 D120 misx2",
+    "question_type": "short_answer",
+    "options": null,
+    "answer": {
+      "value": null,
+      "confidence": 0.0,
+      "match_method": "unmatched"
+    },
+    "source_document_id": "3ac21142-fe36-4134-b86c-502d44ad2b13",
+    "source_pages": [
+      1
+    ],
+    "confidence": 0.3,
+    "status": "needs_review",
+    "review_reason": "Low confidence extraction"
+  }
+]

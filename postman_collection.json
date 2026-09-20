@@ -1,0 +1,436 @@
+{
+  "info": {
+    "_postman_id": "8f6c49e2-9a3d-4c31-b852-document-intel-v1",
+    "name": "Document Intelligence & Question Extraction API",
+    "description": "Postman collection covering the full demo workflow per PRD §14 and §15: Register → Login → Upload (PDF & Image) → Poll Status → Get Pages → Get Questions → Get Single Question → Get Answer → Get Warnings → Document Groups → Rejection of Invalid Files.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "docId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "imgDocId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "questionId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "groupId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01. Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Liveness and dependency check verifying Postgres and Redis health."
+      }
+    },
+    {
+      "name": "02. Register User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"demo_candidate@example.com\",\n  \"password\": \"SuperSecret123!\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/auth/register",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "auth", "register"]
+        }
+      }
+    },
+    {
+      "name": "03. Login User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "if (jsonData.access_token) {",
+              "    pm.collectionVariables.set('token', jsonData.access_token);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"demo_candidate@example.com\",\n  \"password\": \"SuperSecret123!\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/auth/login/json",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "auth", "login", "json"]
+        }
+      }
+    },
+    {
+      "name": "04. Upload Digital PDF Document",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "if (jsonData.id) {",
+              "    pm.collectionVariables.set('docId', jsonData.id);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "samples/inputs/digital_exam.pdf"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/documents",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "documents"]
+        }
+      }
+    },
+    {
+      "name": "05. Upload Standalone PNG Image",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "if (jsonData.id) {",
+              "    pm.collectionVariables.set('imgDocId', jsonData.id);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "samples/inputs/scanned_physics_quiz.png"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/documents",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "documents"]
+        }
+      }
+    },
+    {
+      "name": "06. Attempt Disguised / Invalid Upload (Expect 400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "samples/inputs/fake_document.pdf"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/documents",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "documents"]
+        }
+      }
+    },
+    {
+      "name": "07. Poll Document Status",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/documents/{{docId}}/status",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "documents", "{{docId}}", "status"]
+        }
+      }
+    },
+    {
+      "name": "08. Get Extracted Pages",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/documents/{{docId}}/pages",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "documents", "{{docId}}", "pages"]
+        }
+      }
+    },
+    {
+      "name": "09. Get Extracted Questions for Document",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "if (jsonData && jsonData.length > 0) {",
+              "    pm.collectionVariables.set('questionId', jsonData[0].id);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/documents/{{docId}}/questions",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "documents", "{{docId}}", "questions"]
+        }
+      }
+    },
+    {
+      "name": "10. Get Single Question Detail",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/questions/{{questionId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "questions", "{{questionId}}"]
+        }
+      }
+    },
+    {
+      "name": "11. Get Answer for Question",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/questions/{{questionId}}/answer",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "questions", "{{questionId}}", "answer"]
+        }
+      }
+    },
+    {
+      "name": "12. Get Document Warnings",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/documents/{{docId}}/warnings",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "documents", "{{docId}}", "warnings"]
+        }
+      }
+    },
+    {
+      "name": "13. Create Document Group (Linked Paper & Key)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "if (jsonData.id) {",
+              "    pm.collectionVariables.set('groupId', jsonData.id);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Midterm 2026 Examination & Solutions\",\n  \"document_ids\": [\"{{docId}}\", \"{{imgDocId}}\"]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/document-groups",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "document-groups"]
+        }
+      }
+    },
+    {
+      "name": "14. Get Document Group Detail",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/document-groups/{{groupId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "document-groups", "{{groupId}}"]
+        }
+      }
+    },
+    {
+      "name": "15. List Document Groups",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/document-groups",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "document-groups"]
+        }
+      }
+    },
+    {
+      "name": "16. List Documents (Paginated)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/documents?skip=0&limit=10",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "documents"],
+          "query": [
+            {
+              "key": "skip",
+              "value": "0"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

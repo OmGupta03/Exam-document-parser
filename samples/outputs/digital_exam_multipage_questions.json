@@ -1,0 +1,175 @@
+[
+  {
+    "id": "31ac9b33-b99b-437f-9d27-7c09abe9e29c",
+    "question_number": "1",
+    "question_text": "What is the worst-case time complexity of QuickSort?",
+    "question_type": "mcq",
+    "options": [
+      {
+        "label": "A",
+        "text": "O(n)"
+      },
+      {
+        "label": "B",
+        "text": "O(n log n)"
+      },
+      {
+        "label": "C",
+        "text": "O(n^2)"
+      },
+      {
+        "label": "D",
+        "text": "O(log n)"
+      }
+    ],
+    "answer": {
+      "value": null,
+      "confidence": 0.0,
+      "match_method": "unmatched"
+    },
+    "source_document_id": "3a9bbf10-9c18-4337-8ca7-77e91ecc7f8a",
+    "source_pages": [
+      1
+    ],
+    "confidence": 0.92,
+    "status": "extracted",
+    "review_reason": null
+  },
+  {
+    "id": "e4c909a8-b661-491f-9aae-d1f34fda08d4",
+    "question_number": "2",
+    "question_text": "Which traversal of a binary search tree yields keys in sorted order?",
+    "question_type": "mcq",
+    "options": [
+      {
+        "label": "A",
+        "text": "Preorder"
+      },
+      {
+        "label": "B",
+        "text": "Inorder"
+      },
+      {
+        "label": "C",
+        "text": "Postorder"
+      },
+      {
+        "label": "D",
+        "text": "Level-order"
+      }
+    ],
+    "answer": {
+      "value": null,
+      "confidence": 0.0,
+      "match_method": "unmatched"
+    },
+    "source_document_id": "3a9bbf10-9c18-4337-8ca7-77e91ecc7f8a",
+    "source_pages": [
+      1
+    ],
+    "confidence": 0.96,
+    "status": "extracted",
+    "review_reason": null
+  },
+  {
+    "id": "7ce9e896-549e-4f25-80b9-aad5d2c25df6",
+    "question_number": "3",
+    "question_text": "Which graph algorithm finds shortest paths from a single source with non-negative edge weights?",
+    "question_type": "mcq",
+    "options": [
+      {
+        "label": "A",
+        "text": "Prim"
+      },
+      {
+        "label": "B",
+        "text": "Kruskal"
+      },
+      {
+        "label": "C",
+        "text": "Dijkstra"
+      },
+      {
+        "label": "D",
+        "text": "Bellman-Ford"
+      }
+    ],
+    "answer": {
+      "value": null,
+      "confidence": 0.0,
+      "match_method": "unmatched"
+    },
+    "source_document_id": "3a9bbf10-9c18-4337-8ca7-77e91ecc7f8a",
+    "source_pages": [
+      1
+    ],
+    "confidence": 0.96,
+    "status": "extracted",
+    "review_reason": null
+  },
+  {
+    "id": "c85de44f-03fb-4ef1-8854-3e24133f0482",
+    "question_number": "4",
+    "question_text": "Consider a hash table of size 10 using open addressing with linear probing. The hash function is h(k) = k mod What will be the final index assigned to key 42 after all collisions are resolved?",
+    "question_type": "mcq",
+    "options": [
+      {
+        "label": "A",
+        "text": "Index 2"
+      },
+      {
+        "label": "B",
+        "text": "Index 3"
+      },
+      {
+        "label": "C",
+        "text": "Index 4"
+      },
+      {
+        "label": "D",
+        "text": "Index 5"
+      }
+    ],
+    "answer": {
+      "value": null,
+      "confidence": 0.0,
+      "match_method": "unmatched"
+    },
+    "source_document_id": "3a9bbf10-9c18-4337-8ca7-77e91ecc7f8a",
+    "source_pages": [
+      1,
+      2
+    ],
+    "confidence": 0.96,
+    "status": "extracted",
+    "review_reason": null
+  },
+  {
+    "id": "32463006-80d6-4898-a0a3-b16ce3373ee5",
+    "question_number": "5",
+    "question_text": "True or False: In a min-heap, the root node always contains the minimum element in the tree.",
+    "question_type": "true_false",
+    "options": [
+      {
+        "label": "A",
+        "text": "True"
+      },
+      {
+        "label": "B",
+        "text": "False"
+      }
+    ],
+    "answer": {
+      "value": null,
+      "confidence": 0.0,
+      "match_method": "unmatched"
+    },
+    "source_document_id": "3a9bbf10-9c18-4337-8ca7-77e91ecc7f8a",
+    "source_pages": [
+      2
+    ],
+    "confidence": 0.94,
+    "status": "extracted",
+    "review_reason": null
+  }
+]
